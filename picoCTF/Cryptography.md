@@ -235,6 +235,7 @@ picoCTF{custom_d2cr0pt6d_49fbee5b}
 ## Resources:
 
 - Claude.
+-  Gpt to re-analyze ts after solving (i ran outta prompts on claude T_T)
 
 
 ***
