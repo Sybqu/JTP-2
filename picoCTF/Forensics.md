@@ -20,11 +20,7 @@
 - Intuition: Images: Steganography : Password:DUEDILIIGENCE
 - Got the flag
 
-```
-put codes & terminal outputs here using triple backticks
 
-you may also use ```python for python codes for example
-```
 
 ## Flag:
 
@@ -114,6 +110,8 @@ print("Width: {} Height: {}".format(
 ))
 ```
  <i clearly didnt write this script , its too organized for me and i dont know python ^^>
+ // I found out i could have done this using a hex editor as well later
+
 
 - Fixed the file.
 - Hint : File does not look quite right
@@ -148,3 +146,43 @@ Claude my goat
 
 ***
 
+
+# 3. m00nwalk
+
+> Description
+Decode this message from the moon.
+(enclosed message.wav)
+
+
+## Solution:
+
+- Message.wav is a very type shit beat almost started dancing
+- "How did images from moon landing were sent?" : SSTV
+- RX option : Cmu mascot - scottie 1
+- Went online SSTV decoder
+- it deocded the image for me 
+
+## Flag:
+
+```
+picoCTF{beep_boop_im_in_space}
+```
+
+## Concepts learnt:
+
+- SSTV - sends info through single-channel audio tones. Each tone responding to a specific pixel intensity 
+
+## Notes:
+
+- First i ended up installing MSSTV
+- Very type shit interface hard to use as well
+- Settings were hard to setup , i wanted to input stereo sound but couldnt figure out how to do that
+- Looked online found the SSTV decoder 
+- It didnt ask me for specific RX option but it deocded for me
+
+
+## Resources:
+
+https://sstv-decoder.mathieurenaud.fr
+
+***

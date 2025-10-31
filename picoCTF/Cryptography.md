@@ -235,7 +235,37 @@ picoCTF{custom_d2cr0pt6d_49fbee5b}
 ## Resources:
 
 - Claude.
--  Gpt to re-analyze ts after solving (i ran outta prompts on claude T_T)
+
+
+***
+
+# 2. miniRSA
+
+> Let's decrypt this: ciphertext? Something seems a bit small.
+
+## Solution:
+
+- Everything is given
+- Went to dcode :P ezpz
+
+
+## Flag:
+
+```
+picoCTF{n33d_a_lArg3r_e_d0cd6eae}
+
+```
+
+## Concepts learnt:
+
+- RSA algorithm and calculations
+## Notes:
+- This challenge is flagged as hard
+- I think they expected us to calculate the plaintext manually
+- Highkey curious i had to use dcode because i was short in time maybe later then :3
+## Resources:
+
+
 
 
 ***
