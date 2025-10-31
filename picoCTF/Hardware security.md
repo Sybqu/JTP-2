@@ -229,7 +229,7 @@ enclosed (firmware.elf)
 
 - Loaded up IDA but ida free does not have AVR8 support so yeah ghidra
 - Same old locate the main function and decompile it
-- 
+  
 
 # Decompiled Code
  ```C++
