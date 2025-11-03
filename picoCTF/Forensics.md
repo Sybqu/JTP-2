@@ -186,3 +186,41 @@ picoCTF{beep_boop_im_in_space}
 https://sstv-decoder.mathieurenaud.fr
 
 ***
+# 4. PCAP poisoning
+
+> How about some hide and seek heh?
+ Download this file and find the flag.
+(enclosed trace.pcap)
+## Solution:
+
+- Opened the pcap file
+- Started to sift through it
+- Found some possibly encoded texts :-
+
+```
+iBwaWNvQ1RGe1 <base 64 encoded> - picoCTF{
+gc2VjcmV0OiBwaWN vQ1RGe <base 64> -  secret: pico CTF{
+```
+- At no. 507 i found the flag
+
+## Flag:
+
+```
+picoCTF{P6AP_4N4L7S1S_SU55355FUL_5b6a6061}
+```
+
+## Concepts learnt:
+
+- pcap analysis
+
+## Notes:
+
+- I first tried to export any objects
+- Then tried to follow UDP streams got b64 encoded texts
+- Also i realized it would have been easier if i just used grep
+
+
+## Resources:
+
+
+***

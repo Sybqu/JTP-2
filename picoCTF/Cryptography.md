@@ -239,7 +239,7 @@ picoCTF{custom_d2cr0pt6d_49fbee5b}
 
 ***
 
-# 2. miniRSA
+# 3. miniRSA
 
 > Let's decrypt this: ciphertext? Something seems a bit small.
 
@@ -266,6 +266,42 @@ picoCTF{n33d_a_lArg3r_e_d0cd6eae}
 ## Resources:
 
 
+
+
+***
+# 4. Vigenere
+
+> Can you decrypt this message?
+  Decrypt this message using this key "CYLAB".
+
+## Solution:
+
+- Everything is given
+- dcode.fr 
+- key given
+- decoded flag ><
+
+
+## Flag:
+
+```
+picoCTF{D0NT_US3_V1G3N3R3_C1PH3R_ae82272q}
+
+```
+
+## Concepts learnt:
+
+- Vigenere cipher
+ - PolyAlphabetic cipher also called le chiffre indéchiffrable
+- Vulnerability : key repeats . It can be cracked by splitting cipher texts into chunks
+- Each ciphertext letter gets shifted backward by the key letter’s alphabetical index
+- The key keeps looping
+## Notes:
+- This challenge is flagged as medium but pretty easy if u ask me
+
+## Resources:
+
+dcode.fr
 
 
 ***
