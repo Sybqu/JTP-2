@@ -223,7 +223,7 @@ pop rdi;ret
 ## Flag: nite{ch0pp3d_ch1n_r34lly_m4d3_2025_p34k_f0r_u5} 
 ```
 ## Resources:
-Suraj my goat ^^
+Suraj my goated mentor ^^
 
 
 
