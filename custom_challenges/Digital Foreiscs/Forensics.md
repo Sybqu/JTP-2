@@ -107,3 +107,40 @@ ERRORS DETECTED in nutrela.png
 ```
 ## Flag: nite{n0w_y0u_kn0w_ab0ut_PNG_chunk5}
 ```
+# 3. RAR of the abyss
+
+---
+
+##  Challenge Description
+
+Two philosophers peer into the networked abyss and swap a secret. Use the secret to decrypt the Abyss’ RAwR and pull your flag from the void.
+
+---
+
+##  Files Provided
+
+- `abyss.pcap` 
+
+
+## Initial Recon
+> Pcap analysis in Wireshark <br>
+
+
+## Exploit strat
+> Following the TCP streams and getting the password <br>
+> <img width="856" height="481" alt="image" src="https://github.com/user-attachments/assets/bcf73ca3-182f-413e-9b9c-28a26636b99d" /> <Br>
+```
+Password:b3y0ndG00dand3vil
+```
+> Alongside this extracted RAR magic bytes <br>
+<img width="1279" height="543" alt="image" src="https://github.com/user-attachments/assets/7247cf18-7275-410e-93d9-5f03e554ff24" />
+<br>
+> Converting UTF-8 data to raw bytes and then pasting the bytes in cyberchef to recover X  .RAR fiie <br>
+<br>
+<img width="1162" height="658" alt="image" src="https://github.com/user-attachments/assets/b8142fde-8b47-4a7a-8554-6e0ccd10742a" />
+<Br>
+> Enterring pass and getting the flag
+
+```
+## Flag: nite{thus_sp0k3_th3_n3tw0rk_f0r3ns1cs_4n4lyst}
+```
