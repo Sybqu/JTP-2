@@ -144,3 +144,67 @@ Password:b3y0ndG00dand3vil
 ```
 ## Flag: nite{thus_sp0k3_th3_n3tw0rk_f0r3ns1cs_4n4lyst}
 ```
+# 4. Ninetails
+
+---
+
+##  Challenge Description
+
+Looks like I got a little too clever and hid the flag as a password in Firefox, tucked away like one of NineTails’ many tails. Recover the "logins" and the "key4" and let it guide you to the flag.
+
+Hint:
+I named my Ninetails "j4gjesg4", quite a peculiar name isn't it?
+
+---
+
+##  Files Provided
+
+- `ninetails.rar` 
+
+
+## Initial Recon
+> The .rar inside had .ad1 file <br>
+> Loading up the file in FTK imager<br>
+
+
+
+
+## Exploit strat
+1. Finding the mozilla appdata folder <br>
+2. Path followed : GIC2024/AppData/Roaming/Mozilla/Firefox/profiles/j4gjesg4.default-release <br>
+>3. Exporting logins.json and key4.db <Br>
+>4. Need firefox_decrypt.py to decrypt the .json data <br>
+>5. Downloading from GitHub <br>
+>6. Installing dependencies (libnss tools) <br>
+
+```bash
+garri@LAPTOP-J4CRR4GO:/mnt/c/Users/garri/Desktop/JTP-2/Forensics/chal4$ export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu python3 firefox_decrypt.py .
+2025-12-05 18:50:58,866 - WARNING - profile.ini not found in .
+2025-12-05 18:50:58,867 - WARNING - Continuing and assuming '.' is a profile location
+
+Website:  https://www.rehack.xyz
+Username: 'warlocksmurf'
+Password: 'GCTF{m0zarella'
+
+Website:  https://ctftime.org
+Username: 'ilovecheese'
+Password: 'CHEEEEEEEEEEEEEEEEEEEEEEEEEESE'
+
+Website:  https://www.reddit.com
+Username: 'bluelobster'
+Password: '_f1ref0x_'
+
+Website:  https://www.facebook.com
+Username: 'flag'
+Password: 'SIKE'
+
+Website:  https://warlocksmurf.github.io
+Username: 'Man I Love Forensics'
+Password: 'p4ssw0rd}'
+```
+
+
+```
+## Flag: GCTF{m0zarellaCHEEEEEEEEEEEEEEEEEEEEEEEEEESE_f1ref0x_SIKEp4ssw0rd}
+
+```
