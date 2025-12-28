@@ -20,25 +20,19 @@ TBFC’s defenders have decided to split into specialized teams to uncover the a
 
 
 ## Working strat
-1. Hop on splunk
-2. Allat splunk stuff , statistical representation , visual representation , queries etc. to find out the attack window
-3. The challenge tells us to search for suspicious web commands
-4. Long B64 encoding strings
-5. Cyber-chef!!!
-6. "This is now mine" it said
-7. Switching to apache error logs > More b64 strings
-8. Sysmon logs now.
-<img width="938" height="456" alt="image" src="https://github.com/user-attachments/assets/e647201f-b19b-42d4-988d-1d214f72255f" />
-
-9. Apache is spawning cmd.exe
-10. Confirming Attacker Enumeration Activity <br>
- "" Attackers often use the whoami command immediately after gaining code execution to determine which user account their malicious process is running as.
-       Finding these events confirms the attacker’s post-exploitation reconnaissance, showing that the injected command was executed on the host. ""
+1.Software registry dive in
+2. NTUSER HIVE diving in , extracting info
+3. Hint: malicious activity started form 21oct 2025
+4. We check under uninstall programs and find the only file that was uninstalled on that day 
+5. As an attacker i would wanna hide my payload as soon as possible
+6. Now heading to comptabability assistant 
+7. We locate the path from where the malicious file was run
+8. Also i thought the attack would have dumped the payload in /currentversion/run but it wasnt like that
 
 
-    # Conclusion
+ # Conclusion
 ```
-file name : whoami.exe
-Attempted executable through injection : powershell.exe
-
+file name : DroneManager Updater
+Execution path : C:\Users\dispatch.admin\Downloads\DroneManager_Setup.exe
+*Value added to maintain persistence on startup: C:\Program Files\DroneManagar\dronehelper.exe* --background
 ```
