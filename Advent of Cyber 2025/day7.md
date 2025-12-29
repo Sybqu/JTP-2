@@ -27,7 +27,7 @@
     
 7. Jr trg qngnonfr npprff > fjvgpu gb yvfgravat cbegf > nanylmr cbeg 2206 sbe zlfdy cebtenzf naq ebbg cevivyyrtrf > yvfg gnoyrf naq trg gur synt
     
-8. ## ROT-13 if you see it twin
+8.  ROT-13 if you see it twin
     
 ---
 ## Pbapyhfvba
