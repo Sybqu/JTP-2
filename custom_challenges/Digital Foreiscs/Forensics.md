@@ -211,7 +211,7 @@ Password: 'p4ssw0rd}'
 # 5. Re:Draw
 ---
 
-## 🏁 Challenge Description
+##  Challenge Description
 
 A system suddenly crashed after a black command window briefly appeared.  
 A memory dump was captured at the moment of failure.
@@ -226,13 +226,13 @@ Hint: Learn and use **Volatility 2 plugins**.
 
 ---
 
-# 🔧 Tools Used
+#  Tools Used
 
 - **Volatility 2**
 
 ---
 
-# 🎯 Step 1 — Identify Memory Profile
+#  Step 1 — Identify Memory Profile
 
 ```bash
 volatility -f memory.raw imageinfo
@@ -248,22 +248,21 @@ Suggested Volatility profile (e.g., Win7SP1x64) <Br>
 # 1. Extraction strat
 > volatility --profile=Win7SP1x64 -f memory.raw consoles <br>
   #### flag 1
-> volatility --profile=Win7SP1x64 -f memory.raw filescan <br>
+- volatility --profile=Win7SP1x64 -f memory.raw filescan <br>
 #### flag 2
 - Provided GIMP file
- - Needed to set height width and offset of the image
-  - Calculations: File size / 3 bytes (for RGB)
-   > Filter out realistic screen resolutions
-   > Edit offset till the image makes sense
+ 1. Needed to set height width and offset of the image
+ 2. Calculations: File size / 3 bytes (for RGB)
+ 3. Filter out realistic screen resolutions
+ 4. Edit offset till the image makes sense
 #### flag 3
 - While running ps list in the volatility found Winrar.exe running
-  > Expanded on that process that led me to "important.rar" <Br>
-  > Important.rar was password protected <br>
-  > The password was Alyssa's hash in all caps <br>
-  > Used hashdump command to get the hash and complete the challenge
+  1. Expanded on that process that led me to "important.rar" <Br>
+  2. Important.rar was password protected <br>
+  3. The password was Alyssa's hash in all caps <br>
+  4. Used hashdump command to get the hash and complete the challenge
 
 # NOTE 
-- i know this is a bit hurried since im travelling and had to manage everything ill properly fix it as soon as possible
 
 ## BASH DUMP
 ```bash
