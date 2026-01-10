@@ -33,7 +33,7 @@ Logic gates T___T
 
 ## Resources:
 
-- Include the resources you've referred to with links. [example hyperlink](https://google.com)
+- Include the resources you've referred to with links. 
 
 
 ***
