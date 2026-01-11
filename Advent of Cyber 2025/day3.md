@@ -6,13 +6,19 @@
 
 ## Learning objectives
 1.Ingest and interpret custom log data in Splunk
+
 2.Create and apply custom field extractions
+
 3.Use Search Processing Language (SPL) to filter and refine search results
+
 4.Conduct an investigation within Splunk to uncover key insights
+
 ## Learning splunk software
 1. The logs were already added for us in the splunk software (thanks!)
-2. Using the various filters we can get either a visual representation of the activity or a statstical account of the activity 2
-3. Now we begin our hunt for clues using sql queries or filters
+  
+3. Using the various filters we can get either a visual representation of the activity or a statstical account of the activity
+  
+5. Now we begin our hunt for clues using sql queries or filters
 
 ## Log ingestion and log parsing
 1. Now based on our filter queries we detect the abnormal logs and note down the abnormal client_ip
