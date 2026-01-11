@@ -33,7 +33,6 @@ Logic gates T___T
 
 ## Resources:
 
-- Include the resources you've referred to with links. 
 
 
 ***
@@ -302,7 +301,6 @@ TFCCTF{Th1s_1s_som3_s1mpl3_4rdu1no_f1rmw4re}
 
 ## Resources:
 
-- Include the resources you've referred to with links. [example hyperlink](https://google.com)
 
 
 ***
