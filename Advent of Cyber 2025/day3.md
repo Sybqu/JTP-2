@@ -34,16 +34,16 @@
 
 ### Conclusion
 - Identity found: The attacker was identified via the highest volume of malicious web traffic originating from the external IP.
--Intrusion vector: The attack followed a clear progression in the web logs (sourcetype=web_traffic).
--Reconnaissance: Probes were initiated via cURL/Wget, looking for configuration files (/.env) and testing path traversal vulnerabilities.
--Exploitation: The use of SQLmap user agents and specific payloads (SLEEP(5)) confirmed the successful exploitation phase.
--Payload delivery: The Action on Objective was established by the final successful execution of the command cmd=./bunnylock.bin via the webshell.
--C2 confirmation: The pivot to the firewall logs (sourcetype=firewall_logs) proved the post-exploitation activity. The internal, compromised server (SRC_IP: 10.10.1.5) established an outbound C2 connection to the attacker's IP.
+- Intrusion vector: The attack followed a clear progression in the web logs (sourcetype=web_traffic).
+- Reconnaissance: Probes were initiated via cURL/Wget, looking for configuration files (/.env) and testing path traversal vulnerabilities.
+- Exploitation: The use of SQLmap user agents and specific payloads (SLEEP(5)) confirmed the successful exploitation phase.
+- Payload delivery: The Action on Objective was established by the final successful execution of the command cmd=./bunnylock.bin via the webshell.
+- C2 confirmation: The pivot to the firewall logs (sourcetype=firewall_logs) proved the post-exploitation activity. The internal, compromised server (SRC_IP: 10.10.1.5) established    an outbound C2 connection to the attacker's IP.
 ```
 Attack ip: 198.51.100.55
 Peak traffic day : 2025-10-12
 Count of Havij user_agents in logs : 993
-Number of directory traversing attempts : 658
+Number of  directory traversing attempts : 658
 Bytes transferred : 126167 💀
 
 
