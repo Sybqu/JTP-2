@@ -80,44 +80,16 @@ garri@LAPTOP-J4CRR4GO:/mnt/c/Users/garri/Downloads$ xxd tunn3l_v1s10n | head -10
 - Looked around BMP and its header details : 
   - BMP FILE header should be 14 bytes and DIB header 40 bytes
    clearly BAD0>>>>>>>>>>>>>>>54 bytes.
+
 - FIX:
-
-```Python
-#!/usr/bin/env python3
-
-with open('tunn3l_v1s10n.bmp', 'rb') as f:
-    data = bytearray(f.read())
-
-# Fix offset 0x0A: pixel data offset (should be 0x36 = 54)
-data[0x0A] = 0x36
-data[0x0B] = 0x00
-data[0x0C] = 0x00
-data[0x0D] = 0x00
-
-# Fix offset 0x0E: DIB header size (should be 0x28 = 40)
-data[0x0E] = 0x28
-data[0x0F] = 0x00
-data[0x10] = 0x00
-data[0x11] = 0x00
-
-with open('fixed.bmp', 'wb') as f:
-    f.write(data)
-
-print("✅ Fixed BMP saved as fixed.bmp")
-print("Width: {} Height: {}".format(
-    int.from_bytes(data[0x12:0x16], 'little'),
-    int.from_bytes(data[0x16:0x1A], 'little')
-))
-```
- <i clearly didnt write this script , its too organized for me and i dont know python ^^>
- // I found out i could have done this using a hex editor as well later
+  - Opened the file in HxD and fixed the corrupted chunks manually
 
 
 - Fixed the file.
 - Hint : File does not look quite right
  - yes this was indeed unsettling but this wasn't my first direction.
 - Exiftool showed that file is 2.9 Mb but file size in windows explorer was 2.75 Mb
-- New python script to fix width size ><
+- Fixing width and size of the image now
 - Got the flag
 
 
@@ -224,4 +196,5 @@ picoCTF{P6AP_4N4L7S1S_SU55355FUL_5b6a6061}
 
 
 ***
+
 
