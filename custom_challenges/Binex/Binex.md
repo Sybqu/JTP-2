@@ -43,6 +43,9 @@ Option 3: Log into my binary!
 ## Exploit strat
 - Sending input with "2" not as the first element, so anything like "123" "321" "!23" will work and print the flag
 
+## Learnings
+1. Logic bugs bypass NX,PIE,ASLR
+
 ```
 ## Flag: nite{n0t_4ll_b1n3x_15_st4ck_b4s3d!}
 ```
@@ -126,7 +129,9 @@ d
     p.interactive()
 
 ```
-
+### Learnings
+1. Stack smashing pipeline
+2. Control flow hijack
 ```
 ## Flag: nite{th3_ch4l_4uth0r_15_4nt1_p3rf0rm4t1v3}
 ```
@@ -423,12 +428,18 @@ p.interactive()
 
 ```
 
+## Learnings
+
+1. Rop chaining
+2. Treating gadgets as instructions
+3. Treating the stack as program memory
+4. Register manipulation
 ```
 # flag nite{1m_th3_r34l_fl4g_blud_4l50_6-1_1s_m0r3_tuf}
 
 ```
 ## Resources:
-.
+
 
 # 5. Hungry
 
@@ -600,7 +611,9 @@ garri@LAPTOP-J4CRR4GO:/mnt/c/Users/garri/Desktop/JTP-2/binex/hungry/src$ python3
 $ cat flag.txt
 nite{s1ndh1_15_m0r3_f1ll1ng_th4n_bk_or_mcd}
 ```
-### Plain old cat to finish the deal
+## Learnings
+1. rand() functions can be deterministic
+2. libc behavior matters even without memory bugs
 ```
 # flag: ite{s1ndh1_15_m0r3_f1ll1ng_th4n_bk_or_mcd}
 
